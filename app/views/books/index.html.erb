@@ -1,0 +1,49 @@
+<p class = "notice"><%= notice %></p>
+
+<div class = "container px-5 px-sm-0">
+
+<% if @book.errors.any? %>
+    <h3><%= @book.errors.count %> errors prohibited this obj from being saved:</h3>
+           <% @book.errors.full_messages.each do |message| %>
+            <ul>
+             <li class = "error">
+              <%= message %>
+             </li>
+            </ul>
+           <% end %>
+    <% end %>
+
+  <div class = "row">
+  <div class = "col-md-3">
+   <%= render 'users/user' ,user: @user %>
+   <%= render 'books/newbook' , book: @book %>
+  </div>
+
+  <div class = "col-md-8 offset-md-1">
+   <h2>Books</h2>
+   <table class = "table table-hover table-inverse">
+       <thead>
+         <tr>
+           <th></th>
+           <th>Title</th>
+           <th>Opinion</th>
+         </tr>
+       </thead>
+       <tbody>
+         <% @books.each do |b| %>
+         <tr>
+         <td>
+          <%= link_to user_path(b.user.id) do %>
+            <%= attachment_image_tag b.user,:profile_image, :fill, 100, 100, format: 'jpeg', fallback: "no-image.jpg" %>
+          <% end %>
+          </td>
+         <td><%= link_to b.title , book_path(b.id),data: {"turbolinks" => false} %></td>
+         <td><%= b.body %></td>
+         </tr>
+         <% end %>
+       </tbody>
+   </table>
+  </div>
+
+</div>
+</div>
